@@ -16,3 +16,4 @@ checkship = checkShip(boardcom,ship)
 boardcom = addShips(boardcom, data["numships"])
 data["boardcom"] = boardcom
 return data 
+data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])

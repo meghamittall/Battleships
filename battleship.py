@@ -25,22 +25,14 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data['rows'] = 10
-    data["cols"] = 10
-    data["boardcomsize"] = 500
-    data["boardusersize"] = 500
+    data["row and col"] = 10
+    data["boardsize"] = 500
     data["numships"] = 5
-    data["cellcom"] = data["boardcomsize"] % (data["rows"]*data["cols"]) 
-    data["celluser"] = data["boardusersize"] % (data["rows"]*data["cols"]) 
-    boardcom = emptyGrid(data["rows"],data["cols"])
-    boarduser = emptyGrid(data["rows"],data["cols"])
-    data["boarduser"] = boarduser
-    ship = createShip()
-    checkship = checkShip(boardcom,ship)
-    boardcom = addShips(boardcom, data["numships"])
-    data["boardcom"] = boardcom
-    return data 
-
+    data["cell"] = data["boardsize"] / data["row and col"]
+    data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])
+    data["boardcom"] = addShips(data["boardcom"], data["numships"])
+    data["boarduser"] = emptyGrid(data["row and col"],data["row and col"])
+    
     
 
 
