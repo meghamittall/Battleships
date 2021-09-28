@@ -118,13 +118,14 @@ def addShips(grid, numShips):
     current = 0
     while current < numShips:
         ship = createShip()
-        bool = checkShip(grid,ship)
-        if bool == True:
+        
+        if checkShip(grid,ship) :
             for i in range(len(ship)):
                 x = ship[i][0]
                 y = ship[i][1]
-                grid[x][y] = 2
-        current = current + 1
+                grid[x][y] = SHIP_UNCLICKED
+            current = current + 1
+    
     return grid   
 
 
