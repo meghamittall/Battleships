@@ -79,16 +79,16 @@ Returns: 2D list of ints
 def createShip():
     x = random.randint(1,8)
     y = random.randint(1,8)
-    l = random.randint(0,1)
+    line = random.randint(0,1)
     ship = []
-    if l == 0:
+    if line == 0:
         for i in range(x-1,x+2):
-            s = [i,y]
-            ship.append(s)    
+            center = [i,y]
+            ship.append(center)    
     else :
         for j in range(y-1,y+2):
-            s = [x,j]
-            ship.append(s)
+            center = [x,j]
+            ship.append(center)
     return ship
 
 '''
