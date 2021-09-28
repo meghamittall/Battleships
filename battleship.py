@@ -25,14 +25,14 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data["row and col"] = 10
+    data["rows"] = 10
+    data["cols"] = 10
     data["boardsize"] = 500
     data["numships"] = 5
-    data["cell"] = data["boardsize"] / data["row and col"]
-    data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])
+    data["cell"] = data["boardsize"] / data["rows"]
+    data["boardcom"] = emptyGrid(data["rows"],data["cols"])
     data["boardcom"] = addShips(data["boardcom"], data["numships"])
-    data["boarduser"] = emptyGrid(data["row and col"],data["row and col"])
-    
+    data["boarduser"] = emptyGrid(data["rows"],data["cols"])
     
 
 
@@ -143,7 +143,9 @@ Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
     
-    return
+    return 
+    
+    
 
 
 ### WEEK 2 ###
