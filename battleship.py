@@ -164,7 +164,20 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    return
+    x = []
+    for row in range(len(ship)):
+        if ship[0][1] == ship[row][1]:
+            x.append(ship[row][0])
+        else :
+            return False
+    x = sorted(x)
+    for i in range(1,len(x)):
+        if (x[i] == x[i-1]+1):
+            continue
+        else :
+            return False
+    return True
+    
 
 
 '''
@@ -173,7 +186,21 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    return
+    y = []
+    for row in range(len(ship)):
+        if ship[0][0] == ship[row][0]:
+    
+            y.append(ship[row][1])
+        else :
+            return False
+    y = sorted(y)
+    for i in range(1,len(y)):
+        if (y[i] == y[i-1]+1):
+            continue
+        else :
+            return False
+    return True
+
 
 
 '''
@@ -324,6 +351,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.week1Tests()
+    test.testIsVertical()
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    #runSimulation(500, 500)
