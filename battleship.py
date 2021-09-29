@@ -25,14 +25,14 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data["row and col"] = 10
+    data["rows"] = 10
+    data["cols"] = 10
     data["boardsize"] = 500
     data["numships"] = 5
-    data["cell"] = data["boardsize"] / data["row and col"]
-    data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])
+    data["cell"] = data["boardsize"] / data["rows"]
+    data["boardcom"] = emptyGrid(data["rows"],data["cols"])
     data["boardcom"] = addShips(data["boardcom"], data["numships"])
-    data["boarduser"] = emptyGrid(data["row and col"],data["row and col"])
-    
+    data["boarduser"] = test.testGrid()
     
 
 
@@ -42,6 +42,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
+    drawGrid(data, compCanvas,data["boardcom"], True)
+    drawGrid(data, userCanvas,data["boarduser"] , True)
     return
 
 
@@ -132,7 +134,7 @@ def addShips(grid, numShips):
                 x = ship[i][0]
                 y = ship[i][1]
                 grid[x][y] = 2
-        current = current + 1
+            current = current + 1
     return grid  
 
 
@@ -142,8 +144,15 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
+    for row in range(data["rows"]):
+        for col in range(data["cols"]):
+            if grid[row][col] == SHIP_UNCLICKED:
+                canvas.create_rectangle(col*data["cell"],row*data["cell"],(col+1)*data["cell"],(row+1)*data["cell"],fill="pink",width=1)
+            else :
+                canvas.create_rectangle(col*data["cell"],row*data["cell"],(col+1)*data["cell"],(row+1)*data["cell"],fill="blue",width=1)
+    return 
     
-    return
+     
 
 
 ### WEEK 2 ###
@@ -314,6 +323,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testMakeModel()
+    test.week1Tests()
     ## Finally, run the simulation to test it manually ##
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
