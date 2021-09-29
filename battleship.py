@@ -32,8 +32,6 @@ def makeModel(data):
     data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])
     data["boardcom"] = addShips(data["boardcom"], data["numships"])
     data["boarduser"] = emptyGrid(data["row and col"],data["row and col"])
-    
-    
 
 
 '''
@@ -43,7 +41,7 @@ Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["boardcom"], True)
-    drawGrid(data, userCanvas,data["boarduser"] , True)
+    drawGrid(data, userCanvas,data["boarduser"], True)
     return
 
 
@@ -134,7 +132,7 @@ def addShips(grid, numShips):
                 x = ship[i][0]
                 y = ship[i][1]
                 grid[x][y] = 2
-        current = current + 1
+            current = current + 1
     return grid  
 
 
