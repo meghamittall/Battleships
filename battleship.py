@@ -29,12 +29,12 @@ def makeModel(data):
     data["cols"] = 10
     data["boardsize"] = 500
     data["numships"] = 5
-    data["cell"] = data["boardsize"] / data["rows"]
-    data["boardcom"] = emptyGrid(data["rows"],data["cols"])
-    data["boardcom"] = addShips(data["boardcom"], data["numships"])
-    data["boarduser"] = test.testGrid()
+    data["cell"] = data["boardsize"] // data["rows"]
+    data["boarduser"] = emptyGrid(data["rows"],data["cols"])
+    data["boardcom"] = addShips(emptyGrid(data["rows"],data["cols"]),data["numships"])
+    data["temp_ship"] = []
     
-
+   
 
 '''
 makeView(data, userCanvas, compCanvas)
@@ -44,7 +44,8 @@ Returns: None
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["boardcom"], True)
     drawGrid(data, userCanvas,data["boarduser"] , True)
-    return
+    drawShip(data, userCanvas,data["temp_ship"])
+    
 
 
 '''
@@ -152,7 +153,7 @@ def drawGrid(data, canvas, grid, showShips):
             else :
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
     return 
-    
+     
      
 
 
@@ -194,10 +195,20 @@ def getClickedCell(data, event):
 drawShip(data, canvas, ship)
 Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
-'''
+
 def drawShip(data, canvas, ship):
     return
+'''    
 
+def drawShip(data, canvas, ship):
+    cellsize = data["cell"]
+    for row in range(data["rows"]):
+        for col in range(data["cols"]):
+            grid = [row,col]
+            if grid in ship:
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
+            else :
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)  
 
 '''
 shipIsValid(grid, ship)
@@ -329,6 +340,7 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testGetClickedCell()
+    #test.testDrawGrid()
+
     ## Finally, run the simulation to test it manually ##
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
