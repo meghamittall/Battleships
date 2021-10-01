@@ -165,7 +165,20 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isVertical(ship):
-    return
+    x = []
+    for row in range(len(ship)):
+        if ship[0][1] == ship[row][1]:
+            x.append(ship[row][0])
+        else :
+            return False
+    x = sorted(x)
+    for i in range(1,len(x)):
+        if (x[i] == x[i-1]+1):
+            continue
+        else :
+            return False
+    return True
+    
 
 
 '''
