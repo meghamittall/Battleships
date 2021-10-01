@@ -218,8 +218,7 @@ Returns: bool
 def shipIsValid(grid, ship):
     if (isHorizontal(ship) or isVertical(ship)):
         if(checkShip(grid,ship) and len(ship) == 3): 
-
-            return True
+           return True
         else :
             return False    
     else :
