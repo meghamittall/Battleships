@@ -161,10 +161,10 @@ def drawGrid(data, canvas, grid, showShips):
     cellsize = data["cell"]
     for row in range(data["rows"]):
         for col in range(data["cols"]):
-            
-            canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
             if grid[row][col] == SHIP_UNCLICKED:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="yellow",width=1)
+            else :
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
     return 
      
      
@@ -241,11 +241,15 @@ def drawShip(data, canvas, ship):
 '''    
 
 def drawShip(data, canvas, ship):
-    cellsize = data["cell"]
     for i in range(len(ship)):
-        canvas.create_rectangle(ship[i][1]*cellsize,ship[i][0]*cellsize,(ship[i][1]*cellsize)+cellsize,(ship[i][0]*cellsize)+cellsize, fill="white",width=1)
-             
-
+        x = ship[i][0]
+        y = ship[i][1]
+        x1 = data["cell"]*x 
+        y1 = data["cell"]*y 
+        x2 = data["cell"]+x1
+        y2 = data["cell"]+y1
+    canvas.create_rectangle(x1, y1, x2, y2,fill="white",width=1)
+    return 
 '''
 shipIsValid(grid, ship)
 Parameters: 2D list of ints ; 2D list of ints
@@ -278,7 +282,7 @@ def placeShip(data):
 
     else :
         print("Ship is not valid")
-    ship = []
+    data["temp_ship"] = []
     return 
     
             
