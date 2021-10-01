@@ -126,7 +126,7 @@ def checkShip(grid, ship):
         x = ship[i][0]
         y = ship[i][1]
 
-        if grid[x][y] == 1:
+        if grid[x][y] == SHIP_UNCLICKED:
             continue
         else :
             return False
@@ -161,10 +161,10 @@ def drawGrid(data, canvas, grid, showShips):
     cellsize = data["cell"]
     for row in range(data["rows"]):
         for col in range(data["cols"]):
+            
+            canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
             if grid[row][col] == SHIP_UNCLICKED:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="yellow",width=1)
-            else :
-                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
     return 
      
      
@@ -242,13 +242,9 @@ def drawShip(data, canvas, ship):
 
 def drawShip(data, canvas, ship):
     cellsize = data["cell"]
-    for row in range(data["rows"]):
-        for col in range(data["cols"]):
-            grid = [row,col]
-            if grid in ship:
-                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
-            else :
-                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)  
+    for i in range(len(ship)):
+        canvas.create_rectangle(ship[i][1]*cellsize,ship[i][0]*cellsize,(ship[i][1]*cellsize)+cellsize,(ship[i][0]*cellsize)+cellsize, fill="white",width=1)
+             
 
 '''
 shipIsValid(grid, ship)
@@ -275,14 +271,15 @@ Returns: None
 def placeShip(data):
     ship = data["temp_ship"]
     board = data["boarduser"]
-    if (shipIsValid(data["boarduser"], data["temp_ship"])):
-        for i in range(len(data["temp_ship"])):
+    if (shipIsValid(board, ship)):
+        for i in range(len(ship)):
             board[ship[i][0]][ship[i][1]] = SHIP_UNCLICKED
         data["num_ship"] += 1
 
     else :
         print("Ship is not valid")
     ship = []
+    return 
     
             
                 
