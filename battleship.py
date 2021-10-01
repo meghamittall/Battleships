@@ -29,10 +29,11 @@ def makeModel(data):
     data["cols"] = 10
     data["boardsize"] = 500
     data["numships"] = 5
-    data["cell"] = data["boardsize"] // data["rows"]
+    data["cell"] = data["boardsize"] / data["rows"]
     data["boarduser"] = emptyGrid(data["rows"],data["cols"])
     data["boardcom"] = addShips(emptyGrid(data["rows"],data["cols"]),data["numships"])
     data["temp_ship"] = []
+    data["num_ship"] = 0
     
    
 
@@ -63,6 +64,18 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    cordinates = getClickedCell(data, event)
+    row =cordinates[0]
+    col = cordinates[1]
+    if board == "user":
+        clickUserBoard(data, row, col)
+
+       
+
+
+
+    
+    
     pass
 
 #### WEEK 1 ####
@@ -260,7 +273,22 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
-    return
+    ship = data["temp_ship"]
+    board = data["boarduser"]
+    if (shipIsValid(data["boarduser"], data["temp_ship"])):
+        for i in range(len(data["temp_ship"])):
+            board[ship[i][0]][ship[i][1]] = SHIP_UNCLICKED
+        data["num_ship"] += 1
+
+    else :
+        print("Ship is not valid")
+    ship = []
+    
+            
+                
+
+
+    
 
 
 '''
@@ -269,7 +297,22 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
-    return
+    cordinates = [row,col]
+    ship = data["temp_ship"]
+    if data["num_ship"] == 5:
+       return
+    for i in range(len(ship)):
+        if ship[i] == cordinates:
+            return 
+    ship.append(cordinates)
+    if len(ship) == 3:
+        placeShip(data)
+    if data["num_ship"] == 5:
+        print("You can start the game")
+    return 
+        
+    
+    
 
 
 ### WEEK 3 ###
@@ -375,7 +418,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testShipIsValid()
-
+    #test
     ## Finally, run the simulation to test it manually ##
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
