@@ -126,7 +126,7 @@ def checkShip(grid, ship):
         x = ship[i][0]
         y = ship[i][1]
 
-        if grid[x][y] == SHIP_UNCLICKED:
+        if grid[x][y] == EMPTY_UNCLICKED:
             continue
         else :
             return False
@@ -141,9 +141,12 @@ Returns: 2D list of ints
 def addShips(grid, numShips):
     current = 0
     while current < numShips:
+        print(current," current")
         ship = createShip()
         bool = checkShip(grid,ship)
+        #print(bool, " bool")
         if bool == True:
+            print(" code")
             for i in range(len(ship)):
                 x = ship[i][0]
                 y = ship[i][1]
@@ -241,6 +244,7 @@ def drawShip(data, canvas, ship):
 '''    
 
 def drawShip(data, canvas, ship):
+    print(len(ship), " len of ship")
     for i in range(len(ship)):
         x = ship[i][0]
         y = ship[i][1]
@@ -248,7 +252,8 @@ def drawShip(data, canvas, ship):
         y1 = data["cell"]*y 
         x2 = data["cell"]+x1
         y2 = data["cell"]+y1
-    canvas.create_rectangle(x1, y1, x2, y2,fill="white",width=1)
+        print(x1,y1,x2,y2," canvas")
+        canvas.create_rectangle(y1,x1,y2,x2,fill="white",width=1)
     return 
 '''
 shipIsValid(grid, ship)
@@ -306,6 +311,8 @@ def clickUserBoard(data, row, col):
         if ship[i] == cordinates:
             return 
     ship.append(cordinates)
+    data["temp_ship"] = ship
+    print(data["temp_ship"])
     if len(ship) == 3:
         placeShip(data)
     if data["num_ship"] == 5:
