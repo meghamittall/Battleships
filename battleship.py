@@ -34,6 +34,7 @@ def makeModel(data):
     data["boardcom"] = addShips(emptyGrid(data["rows"],data["cols"]),data["numships"])
     data["temp_ship"] = []
     data["num_ship"] = 0
+    data["winner"] = None
     
    
 
@@ -46,6 +47,8 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data, compCanvas,data["boardcom"], False)
     drawGrid(data, userCanvas,data["boarduser"] , True)
     drawShip(data, userCanvas,data["temp_ship"])
+    drawGameOver(data, userCanvas)
+
     
 '''
 keyPressed(data, events)
@@ -62,6 +65,8 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if data["winner"] != None:
+        return None
     cordinates = getClickedCell(data, event)
     row =cordinates[0]
     col = cordinates[1]
@@ -334,6 +339,10 @@ def updateBoard(data, board, row, col, player):
         board[row][col] = SHIP_CLICKED
     elif board[row][col] == EMPTY_UNCLICKED:
         board[row][col] = EMPTY_CLICKED
+    isGameOver(board)
+    data["winner"] = player
+    
+    
             
                 
 
@@ -378,7 +387,13 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for x in range(len(board)):
+        for y in range(len(board[x])):
+            if board[x][y] == SHIP_UNCLICKED:
+                return False
+    return True        
+                
+    
 
 
 '''
@@ -387,7 +402,11 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
-    return
+    if data["winner"] == "user":
+        canvas.create_text(250, 50, text="COGRATULATIONS You win the game", fill="black", font=('Helvetica 15 bold'))
+    elif data["winner"] == "comp":
+        canvas.create_text(250, 50, text="SORRY You lose", fill="black", font=('Helvetica 15 bold'))
+
 
 
 ### SIMULATION FRAMEWORK ###
@@ -448,4 +467,4 @@ if __name__ == "__main__":
 
     #test.testGetComputerGuess()
     ## Finally, run the simulation to test it manually ##
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
