@@ -164,11 +164,14 @@ def drawGrid(data, canvas, grid, showShips):
     cellsize = data["cell"]
     for row in range(data["rows"]):
         for col in range(data["cols"]):
+            
             if grid[row][col] == SHIP_UNCLICKED and showShips == False:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
-            else :
+            elif grid[row][col] == SHIP_UNCLICKED and showShips == True:
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="yellow",width=1)
+            elif  grid[row][col] == EMPTY_UNCLICKED:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
-            if grid[row][col] == SHIP_CLICKED:
+            elif grid[row][col] == SHIP_CLICKED:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="red",width=1)
             elif grid[row][col] == EMPTY_CLICKED:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
@@ -341,8 +344,8 @@ def updateBoard(data, board, row, col, player):
         board[row][col] = SHIP_CLICKED
     elif board[row][col] == EMPTY_UNCLICKED:
         board[row][col] = EMPTY_CLICKED
-    isGameOver(board)
-    data["winner"] = player
+    if isGameOver(board):
+        data["winner"] = player
     
     
             
@@ -362,8 +365,8 @@ def runGameTurn(data, row, col):
         return None
     else :
         updateBoard(data, data["boardcom"], row, col, "user")
-    getComputerGuess(data["boarduser"])
-    updateBoard(data, data["boarduser"], row, col, "comp")
+    cGuess = getComputerGuess(data["boarduser"])
+    updateBoard(data, data["boarduser"], cGuess[0], cGuess[1], "comp")
     data["currentNumOfTurns"] += 1
     if data["currentNumOfTurns"] == data["maxNumOfTurns"]:
         data["winner"] = "draw"
