@@ -204,8 +204,8 @@ def drawShip(data, canvas, ship):
     cellsize = data["cell"]
     for row in range(data["rows"]):
         for col in range(data["cols"]):
-            grid = [row,col]
-            if grid in ship:
+            position = [row,col]
+            if position in ship:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
             else :
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)  
