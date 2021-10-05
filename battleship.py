@@ -414,13 +414,12 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if data["winner"] == "user":
-        canvas.create_text(250, 225, text="COGRATULATIONS You win the game", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 225, text="COGRATULATIONS You win the game \n You want to play again press enter", fill="black", font=('Helvetica 15 bold'))
     elif data["winner"] == "comp":
-        canvas.create_text(250, 225, text="SORRY You lose", fill="black", font=('Helvetica 15 bold'))
+        canvas.create_text(250, 225, text="SORRY You lose \n You want to play again press enter", fill="black", font=('Helvetica 15 bold'))
     if data["winner"] == "draw":
-        canvas.create_text(250, 225, text="You have reached a draw", fill="black", font=('Helvetica 15 bold'))
-    canvas.create_text(250, 225, text="Play agian press enter", fill="black", font=('Helvetica 15 bold'))
-
+        canvas.create_text(250, 225, text="You have reached a draw \n You want to play again press enter", fill="black", font=('Helvetica 15 bold'))
+   
 
 
 ### SIMULATION FRAMEWORK ###
