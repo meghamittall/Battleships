@@ -207,8 +207,7 @@ def drawShip(data, canvas, ship):
             position = [row,col]
             if position in ship:
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
-            else :
-                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)  
+            
 
 '''
 shipIsValid(grid, ship)
@@ -340,7 +339,7 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    #test.testDrawGrid()
+    test.testDrawGrid()
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    #runSimulation(500, 500)
