@@ -173,23 +173,18 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    y = []
+    yCoordinate = []
     for row in range(len(ship)):
         if ship[0][0] == ship[row][0]:
     
-            y.append(ship[row][1])
+            yCoordinate.append(ship[row][1])
         else :
             return False
-    y = sorted(y)
-    for i in range(1,len(y)):
-        if (y[i] == y[i-1]+1):
-            continue
-        else :
-            return False
-    return True
+    yCoordinate = sorted(yCoordinate)
+    for i in range(1,len(yCoordinate)):
+        if (yCoordinate[i] != yCoordinate[i-1]+1):
+            return 
     
-
-
 '''
 getClickedCell(data, event)
 Parameters: dict mapping strs to values ; mouse event object
