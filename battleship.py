@@ -172,9 +172,7 @@ def isVertical(ship):
             return False
     x = sorted(x)
     for i in range(1,len(x)):
-        if (x[i] == x[i-1]+1):
-            continue
-        else :
+        if (x[i] != x[i-1]+1):
             return False
     return True
     
