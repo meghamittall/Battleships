@@ -305,7 +305,7 @@ Returns: None
 def clickUserBoard(data, row, col):
     cordinates = [row,col]
     ship = data["temp_ship"]
-    if data["num_ship"] == 5:
+    if data["num_ship"] ==  data["numships"]:
        return
     for i in range(len(ship)):
         if ship[i] == cordinates:
@@ -315,7 +315,7 @@ def clickUserBoard(data, row, col):
     print(data["temp_ship"])
     if len(ship) == 3:
         placeShip(data)
-    if data["num_ship"] == 5:
+    if data["num_ship"] ==  data["numships"]:
         print("You can start the game")
     return 
         
