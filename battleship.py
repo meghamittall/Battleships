@@ -42,6 +42,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
+    drawGrid(data, compCanvas,data["boardcom"], True)
+    drawGrid(data, userCanvas,data["boarduser"] , True)
     return
 
 
@@ -135,17 +137,22 @@ def addShips(grid, numShips):
             current = current + 1    
     return grid   
 
-
 '''
 drawGrid(data, canvas, grid, showShips)
 Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; bool
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    
+    cellsize = data["cell"]
+    for row in range(data["rows"]):
+        for col in range(data["cols"]):
+            if grid[row][col] == SHIP_UNCLICKED:
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="pink",width=1)
+            else :
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
     return 
     
-    
+     
 
 
 ### WEEK 2 ###
@@ -165,9 +172,19 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isHorizontal(ship):
-    return
-
-
+    yCoordinate = []
+    for row in range(len(ship)):
+        if ship[0][0] == ship[row][0]:
+    
+            yCoordinate.append(ship[row][1])
+        else :
+            return False
+    yCoordinate = sorted(yCoordinate)
+    for i in range(1,len(yCoordinate)):
+        if (yCoordinate[i] != yCoordinate[i-1]+1):
+            return False
+    return True
+    
 '''
 getClickedCell(data, event)
 Parameters: dict mapping strs to values ; mouse event object
@@ -316,6 +333,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testMakeModel()
+    test.testIsHorizontal()
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
