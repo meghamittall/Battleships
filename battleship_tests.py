@@ -78,6 +78,7 @@ def testAddShips():
         for cell in row:
             if cell == 2:
                 count += 1
+    print (count)
     assert(count == 15) # Five ships should take up 15 cells total
     print("... done!")
 
