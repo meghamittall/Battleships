@@ -1,3 +1,4 @@
+
 """
 Battleship Project
 Name:
@@ -25,13 +26,15 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data["row and col"] = 10
+    data["rows"] = 10
+    data["cols"] = 10
     data["boardsize"] = 500
     data["numships"] = 5
-    data["cell"] = data["boardsize"] / data["row and col"]
-    data["boardcom"] = emptyGrid(data["row and col"],data["row and col"])
+    data["cell"] = data["boardsize"] / data["rows"]
+    data["boardcom"] = emptyGrid(data["rows"],data["cols"])
     data["boardcom"] = addShips(data["boardcom"], data["numships"])
-    data["boarduser"] = emptyGrid(data["row and col"],data["row and col"])
+    data["boarduser"] = emptyGrid(data["rows"],data["cols"])
+    
 
 
 '''
@@ -70,13 +73,13 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    list=[]
+    grid = []
     for i in range(rows):
-        col = []
+        list = []
         for j in range(cols):
-            col.append(EMPTY_UNCLICKED)
-        list.append(col)
-    return list
+            list.append(EMPTY_UNCLICKED)
+        grid.append(list)
+    return grid
 
 
 '''
@@ -87,16 +90,16 @@ Returns: 2D list of ints
 def createShip():
     x = random.randint(1,8)
     y = random.randint(1,8)
-    l = random.randint(0,1)
+    line = random.randint(0,1)
     ship = []
-    if l == 0:
+    if line == 0:
         for i in range(x-1,x+2):
-            s = [i,y]
-            ship.append(s)    
+            center = [i,y]
+            ship.append(center)    
     else :
         for j in range(y-1,y+2):
-            s = [x,j]
-            ship.append(s)
+            center = [x,j]
+            ship.append(center)
     return ship
 
 '''
@@ -110,7 +113,7 @@ def checkShip(grid, ship):
         x = ship[i][0]
         y = ship[i][1]
 
-        if grid[x][y] == 1:
+        if grid[x][y] == EMPTY_UNCLICKED:
             continue
         else :
             return False
@@ -126,14 +129,14 @@ def addShips(grid, numShips):
     current = 0
     while current < numShips:
         ship = createShip()
-        bool = checkShip(grid,ship)
-        if bool == True:
+        
+        if checkShip(grid,ship) :
             for i in range(len(ship)):
                 x = ship[i][0]
                 y = ship[i][1]
-                grid[x][y] = 2
-            current = current + 1
-    return grid  
+                grid[x][y] = SHIP_UNCLICKED
+            current = current + 1    
+    return grid   
 
 
 '''
@@ -146,13 +149,11 @@ def drawGrid(data, canvas, grid, showShips):
     for row in range(data["rows"]):
         for col in range(data["cols"]):
             if grid[row][col] == SHIP_UNCLICKED:
-                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="pink",width=1)
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="yellow",width=1)
             else :
                 canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
-    return 
+    return     
     
-    
-
 
 ### WEEK 2 ###
 
@@ -322,6 +323,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.week1Tests()
+    test.testMakeModel()
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
