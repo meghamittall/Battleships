@@ -8,6 +8,6 @@ for i in range(data['rows']):
         x2 = x1 + 50
         y2 = y2 + 50
         canvas = canvas.create_rectangle(x1, y1, x2, y2, outline='black') 
-        
+
 
         
