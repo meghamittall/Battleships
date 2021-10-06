@@ -183,7 +183,7 @@ def isHorizontal(ship):
     yCoordinate = sorted(yCoordinate)
     for i in range(1,len(yCoordinate)):
         if (yCoordinate[i] != yCoordinate[i-1]+1):
-            return 
+            return True
     
 '''
 getClickedCell(data, event)
