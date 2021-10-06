@@ -3,7 +3,6 @@ col = data["cols"]
 cellsize = data["celluser"]
 for i in range(data['rows']):
     for j in range(data["cols"]):
-        
         x1 = 50*j
         y1 = 50*i
         x2 = x1 + 50

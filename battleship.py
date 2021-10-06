@@ -25,8 +25,16 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    return
-
+    data["rows"] = 10
+    data["cols"] = 10
+    data["boardsize"] = 500
+    data["numships"] = 5
+    data["cell"] = data["boardsize"] // data["rows"]
+    data["boarduser"] = emptyGrid(data["rows"],data["cols"])
+    data["boardcom"] = addShips(emptyGrid(data["rows"],data["cols"]),data["numships"])
+    data["temp_ship"] = []
+    
+   
 
 '''
 makeView(data, userCanvas, compCanvas)
@@ -34,7 +42,10 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    return
+    drawGrid(data, compCanvas,data["boardcom"], True)
+    drawGrid(data, userCanvas,data["boarduser"] , True)
+    drawShip(data, userCanvas,data["temp_ship"])
+    
 
 
 '''
@@ -135,7 +146,16 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    cellsize = data["cell"]
+    for row in range(data["rows"]):
+        for col in range(data["cols"]):
+            if grid[row][col] == SHIP_UNCLICKED:
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="yellow",width=1)
+            else :
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="blue",width=1)
+    return 
+     
+     
 
 
 ### WEEK 2 ###
@@ -164,17 +184,31 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    return
+    x = int(event.y/data["cell"])
+    y = int(event.x/data["cell"])
+    clickedCell = []
+    clickedCell.append(x)
+    clickedCell.append(y)
+    return clickedCell
 
 
 '''
 drawShip(data, canvas, ship)
 Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
-'''
+
 def drawShip(data, canvas, ship):
     return
+'''    
 
+def drawShip(data, canvas, ship):
+    cellsize = data["cell"]
+    for row in range(data["rows"]):
+        for col in range(data["cols"]):
+            position = [row,col]
+            if position in ship:
+                canvas.create_rectangle(col*cellsize,row*cellsize,(col+1)*cellsize,(row+1)*cellsize,fill="white",width=1)
+            
 
 '''
 shipIsValid(grid, ship)
@@ -306,6 +340,7 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testAddShips()
+    test.testDrawGrid()
+
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
