@@ -184,9 +184,7 @@ Returns: list of ints
 def getClickedCell(data, event):
     x = int(event.y/data["cell"])
     y = int(event.x/data["cell"])
-    clickedCell = []
-    clickedCell.append(x)
-    clickedCell.append(y)
+    clickedCell = [x,y]
     return clickedCell
 
 
