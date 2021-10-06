@@ -25,7 +25,15 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    return
+    data["rows"] = 10
+    data["cols"] = 10
+    data["boardsize"] = 500
+    data["numships"] = 5
+    data["cell"] = data["boardsize"] / data["rows"]
+    data["boardcom"] = emptyGrid(data["rows"],data["cols"])
+    data["boardcom"] = addShips(data["boardcom"], data["numships"])
+    data["boarduser"] = emptyGrid(data["rows"],data["cols"])
+    
 
 
 '''
@@ -124,8 +132,7 @@ def addShips(grid, numShips):
                 x = ship[i][0]
                 y = ship[i][1]
                 grid[x][y] = SHIP_UNCLICKED
-            current = current + 1
-    
+            current = current + 1    
     return grid   
 
 
@@ -135,7 +142,10 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
+    
+    return 
+    
+    
 
 
 ### WEEK 2 ###
@@ -306,6 +316,6 @@ def runSimulation(w, h):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
 
-    test.testAddShips()
+    test.testMakeModel()
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
